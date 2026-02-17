@@ -204,4 +204,3 @@ class OrdinalLogisticRegression(MultinomialLogisticRegression):
 
     theta_cutpoints:    Optional[np.ndarray] = field(default=None, repr=False)
     alpha_cutpoints:    Optional[np.ndarray] = field(default=None, repr=False)
-    cuda:               bool = field(default=False, repr=True)
