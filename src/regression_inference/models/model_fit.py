@@ -3,6 +3,7 @@ from ..utils import validate
 from ..models.fit import fit_linear, fit_logit, fit_logit_ordinal, fit_logit_multinomial
 import numpy as np
 
+# CUDA Not required. Do not throw an error here
 try:
     import cupy
     from ..models.fit.accelerated_models import fit_logit_ordinal_cuda, fit_logit_multinomial_cuda
@@ -37,7 +38,7 @@ def get_targetLabel(y, target_name):
     return (
         target_name if target_name is not None
         else y.name if hasattr(y, 'name')
-        else "Dependent"
+        else "Target"
     )
 
 
@@ -58,14 +59,8 @@ def fit(
         validate.validate(X, y, alpha, model.model_type)
     )
 
-    model.feature_names = (
-        get_featureLabel(X, feature_names)
-    )
-
-    model.target = (
-        get_targetLabel(y, target_name)
-    )
-
+    model.feature_names = get_featureLabel(X, feature_names)
+    model.target = get_targetLabel(y, target_name)
     model.alpha = alpha
 
     model.X, model.y = (
@@ -113,8 +108,7 @@ def fit(
                 model, adj_cutpoints, max_iter, tol)
 
         else:
-            raise ValueError(f"CUDA Not supported for model type: {
-                             model.model_type}")
+            raise ValueError(f"CUDA Not supported for model type: {model.model_type}")
 
     else:
         raise ValueError(f"Unexpected cuda specification: {cuda}")

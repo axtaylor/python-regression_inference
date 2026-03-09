@@ -58,7 +58,7 @@ def predict(model, X, alpha, return_table):
         2 * (1 - norm.cdf(abs(z_stat)))
     )
 
-    return ({
+    return {
         "features": [prediction_features],
         "prediction_prob": [np.round(prediction_prob.item(), 4)],
         "prediction_class": [int(prediction_prob.item() >= 0.5)],
@@ -67,5 +67,5 @@ def predict(model, X, alpha, return_table):
         "P>|z|": [f"{p.item():.3f}"],
         f"ci_low_{alpha}": [np.round(ci_low_prob.item(), 4)],
         f"ci_high_{alpha}": [np.round(ci_high_prob.item(), 4)],
-    })
+    }
 

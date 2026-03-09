@@ -14,9 +14,7 @@ def predict(model, X, alpha, return_table):
         for name, value_at in zip(model.feature_names[1:], X[0])
     }
 
-    X = (
-        np.hstack([np.ones((X.shape[0], 1)), X])
-    )
+    X = np.hstack([np.ones((X.shape[0], 1)), X])
 
     se_prediction = (
         (np.sqrt((X @ model.variance_coefficient @ X.T)).item())
@@ -41,7 +39,7 @@ def predict(model, X, alpha, return_table):
         2 * (1 - t_dist.cdf(abs(t_stat), model.degrees_freedom))
     )
 
-    return ({
+    return {
         "features": [prediction_features],
         "prediction": [np.round(prediction.item(), 4)],
         "std_error": [np.round(se_prediction, 4)],
@@ -49,4 +47,4 @@ def predict(model, X, alpha, return_table):
         "P>|t|": [f"{p.item():.3f}"],
         f"ci_low_{alpha}": [np.round(ci_low.item(), 4)],
         f"ci_high_{alpha}": [np.round(ci_high.item(), 4)],
-    })
+    }
