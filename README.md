@@ -396,10 +396,10 @@ model.feature_names[1:]
 Predict in the order of the features without a constant.
 
 ```
-model.predict(np.array([[0, 0, 0], ]))
+model.predict(np.array([0, 0, 0], ))
 ```
 ```
-[Out]: array([7.32564767])
+[Out]: 7.32564767
 ```
 
 ---
@@ -414,11 +414,11 @@ Use `return_table = True` to include inference statistics.
 # Range over values of a feature
 
 prediction_set = [
-    (np.array([[i, X['maeduc'].mean(), X['age'].mean()],]))
+    (np.array([i, X['maeduc'].mean(), X['age'].mean()],))
     for i in range(int(X['paeduc'].min()), int(X['paeduc'].max())+1)
     ] 
     
-predictions = pd.concat([pd.DataFrame(model.predict(i, return_table=True)) for i in prediction_set], ignore_index=True)
+predictions = pd.concat(pd.DataFrame(model.predict(i, return_table=True)) for i in prediction_set)
 ```
 
 ![](./static/1.png)
@@ -429,13 +429,13 @@ predictions = pd.concat([pd.DataFrame(model.predict(i, return_table=True)) for i
 # Predict discrete values
 
 prediction_set = [
-    np.array([[2.66, 20.0, 0.0]]),
-    np.array([[2.89, 22.0, 0.0]]),
-    np.array([[3.28, 24.0, 0.0]]),
-    np.array([[2.92, 12.0, 0.0]]),
+    np.array([2.66, 20.0, 0.0]),
+    np.array([2.89, 22.0, 0.0]),
+    np.array([3.28, 24.0, 0.0]),
+    np.array([2.92, 12.0, 0.0]),
 ]
 
-predictions = pd.concat([pd.DataFrame(model.predict(test_set, return_table=True)) for test_set in prediction_set], ignore_index=True)
+predictions = pd.concat(pd.DataFrame(model.predict(test_set, return_table=True)) for test_set in prediction_set)
 ```
 
 ![](./static/2.png)
