@@ -11,6 +11,8 @@ def softmax(Z: np.ndarray) -> np.ndarray:
 
 def predict(model, X, alpha, return_table):
 
+    X = X.reshape(1,-1)
+
     prediction = softmax(
         np.column_stack(
             [
