@@ -6,6 +6,7 @@ from typing import Union
 def predict(model, X: np.ndarray, alpha: float, return_table: bool) -> Union[float, np.ndarray, dict, list[dict]]:
 
     X = np.asarray(X, dtype=float)
+    X = np.atleast_2d(X)
 
     if model.model_type == "linear":
         # Returns: Union[float, dict]

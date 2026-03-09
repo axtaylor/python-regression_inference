@@ -7,9 +7,7 @@ def predict(model, X, alpha, return_table):
     prediction = X @ model.coefficients + model.intercept
 
     if not return_table:
-        return prediction
-    
-    X = X.reshape(1,-1)
+        return prediction.item()
 
     prediction_features = {
         name: f'{value_at.item():.2f}'

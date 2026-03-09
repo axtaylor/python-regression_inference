@@ -47,16 +47,14 @@ def predict_prob(X, beta, alpha, n_classes):
 def predict(model, X, alpha, return_table):
 
     prediction = predict_prob(
-        np.atleast_2d(X),
+        X,
         model.coefficients,
         model.alpha_cutpoints,
         model.n_classes
     )
 
     if not return_table:
-        return prediction
-
-    X = np.atleast_2d(X)
+        return prediction.reshape(-1)
 
     prediction_features = {
         name: f'{value_at.item():.2f}'

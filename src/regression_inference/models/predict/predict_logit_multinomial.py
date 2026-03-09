@@ -11,8 +11,6 @@ def softmax(Z: np.ndarray) -> np.ndarray:
 
 def predict(model, X, alpha, return_table):
 
-    X = X.reshape(1,-1)
-
     prediction = softmax(
         np.column_stack(
             [
@@ -24,7 +22,7 @@ def predict(model, X, alpha, return_table):
     )
 
     if not return_table:
-        return prediction
+        return prediction.reshape(-1)
 
     prediction_features = {
         name: f'{value_at.item():.2f}'
