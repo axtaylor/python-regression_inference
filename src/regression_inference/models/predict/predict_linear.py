@@ -8,6 +8,8 @@ def predict(model, X, alpha, return_table):
 
     if not return_table:
         return prediction
+    
+    X = X.reshape(1,-1)
 
     prediction_features = {
         name: f'{value_at.item():.2f}'
