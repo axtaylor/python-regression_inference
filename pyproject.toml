@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "regression-inference"
-version = "1.5.4"
+version = "1.5.5"
 authors = [
   { name="axtaylor", email="lucasataylor.dev@gmail.com" },
 ]

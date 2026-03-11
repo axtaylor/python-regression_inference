@@ -180,8 +180,7 @@ def summary(*args):
     for label, attr in stats_lines:
         stat_row = f"{label:<{col_span}}"
         for model in models:
-            stat_row += f"{(attr(model) if callable(attr)
-                            else getattr(model, attr)):>{col_width}.3f}"
+            stat_row += f"{(attr(model) if callable(attr) else getattr(model, attr)):>{col_width}.3f}"
         stats += stat_row + "\n"
 
     # Reset feature names to remove the ordinal

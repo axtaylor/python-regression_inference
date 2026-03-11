@@ -196,8 +196,7 @@ def robust_se(model, type, apply=False):
             scale = HC__[type]
 
             if scale is None:
-                raise ValueError(f"{type} not supported for {
-                                 model.model_type}.")
+                raise ValueError(f"{type} not supported for {model.model_type}.")
 
             for i in range(n):
 

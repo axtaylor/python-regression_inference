@@ -19,8 +19,7 @@ def accelerated_ordinal_logit(model, adj_cutpoints: bool, max_iter: int, tol: fl
 
     warnings.warn(
         f"\nCUDA Acceleration is Experimental\n"
-        f"Device: {str(cp.cuda.runtime.getDeviceProperties(
-            device.id)['name'])[2:][:-1]}\n",
+        f"Device: {str(cp.cuda.runtime.getDeviceProperties(device.id)['name'])[2:][:-1]}\n",
         UserWarning,
         stacklevel=4,
     )

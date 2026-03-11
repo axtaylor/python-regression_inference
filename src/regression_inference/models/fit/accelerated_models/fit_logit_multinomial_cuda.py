@@ -27,8 +27,7 @@ def accelerated_multinomial_logit(model, max_iter: int, tol: float) -> None:
 
     warnings.warn(
         f"\nCUDA Acceleration is Experimental\n"
-        f"Device: {str(cp.cuda.runtime.getDeviceProperties(
-            device.id)['name'])[2:][:-1]}\n",
+        f"Device: {str(cp.cuda.runtime.getDeviceProperties(device.id)['name'])[2:][:-1]}\n",
         UserWarning,
         stacklevel=4,
     )
