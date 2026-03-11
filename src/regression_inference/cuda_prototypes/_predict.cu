@@ -44,28 +44,6 @@ void __predict(
     cublasHandle_t cublas_handle;
     cublasCreate(&cublas_handle);
     
-    
-    /* 
-    One note on cuBLAS default behaviour:
-
-        X = A in this function
-        theta = X in this function
-
-        cuBLAS assumes (A \in \mathbb{R}^{k \times 1})
-        I have A stored as (1 \times k)
-
-        Using cuBLAS_OP_T, the intended shape is restored
-        op_t(A) = A^T \in \mathbb{R}^{1 \times k}
-    
-    Now the operation looks like this
-
-    y = (sum i=0 to k-1 (1* X^T * theta + 0*y))
-    = (X^T @ theta)
-
-    This requires the intercept to be manually included by the user when predicting
-    which is behaviour consistent with statsmodels
-
-    */
     cublasSgemv(
         cublas_handle,      
         CUBLAS_OP_T,        // transpose 1 x k to k x 1

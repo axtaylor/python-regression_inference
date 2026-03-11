@@ -1,57 +1,7 @@
-/* ===================================================
-    __fit.cu
- 
-    Trains the Linear Regression model using a 
-    vectorized approach to the Gradient Descent
- 
-    Model Specification: \widehat{y} = X @ theta
- 
-    Training methodology: \epsilon = \frac{1}{2n}|| X*theta-y ||^2
- 
-    --------------------------------------------------
-    Diagram:
- 
-    CPU:
-    X_host, y_host, theta_host (allocated space)
- 
-        | copy
-        V
-    GPU:
-    X, y, theta
- 
-    Training loop:
-    Predict -> cublasSgemv()
-    Residuals -> calculateResiduals()
-    Gradient -> cublasSgemv()
-    Update -> updateWeight()
- 
-        | copy
-        V
-    CPU:
-    theta at convergence 
-
-       | send to python
-       V
-
-    model = LinearRegression()
-    model.fit(X,y)
-    model.theta = [...]
-
-   =================================================== */ 
-
 #include "regression.h"
 #include <cuda_runtime.h>
 #include <cublas_v2.h>
 #include <stdio.h>
-
-/* ===================================================
-   calculateResiduals(y_pred, *y, *error, n)
-
-   Compute one sample per thread with:
-
-   \epsilon = sum i=0 ... n-1 (\widehat{y} - y)
-
-   =================================================== */ 
 
 __global__ void calculateResiduals(
     const float* y_pred, const float* y, 
@@ -64,20 +14,6 @@ __global__ void calculateResiduals(
         error[idx] = y_pred[idx] - y[idx];
     }
 }
-
-/* ===================================================
-   updateWeight(*theta, *gradient, lr, k)
-
-   Efficient vectorized operation designed for GPU.
-
-   Called within the gradient descent loop to update the
-   model weights and bias. 
-
-   GPU can load 128 bits or 4 floats in a single instruction
-   so for all k % 4 == 0, the processing is vectorized,
-   else the remaining elements are scalar processed.
-
-   =================================================== */ 
 
 __global__ void updateWeight(
     float* theta, const float* gradient, 
@@ -110,12 +46,6 @@ __global__ void updateWeight(
     }
 }
 
-/* ===================================================
-   reduceLoss(*error, *loss, n)
-
-   Each thread computes the SSR/SSE for multiple samples
-
-   =================================================== */ 
 
 __global__ void reduceLoss(
     const float* error,
@@ -165,11 +95,6 @@ __global__ void reduceLoss(
     }
 }
 
-/* ===================================================
-   fit(*X, *y, m_iters, lr, tol, *theta, n, k)
-
-   =================================================== */ 
-   
 void __fit(
     const float* X_host,
     const float* y_host,
