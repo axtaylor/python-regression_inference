@@ -1,3 +1,4 @@
+.pytest_cache
 datasets/
 dist/
 src/regression_inference/services/__pycache__
@@ -10,5 +11,4 @@ tests/notebooks/linear_regression_example_old.ipynb
 tests/notebooks/logit_regression_example_old.ipynb
 tests/notebooks/multinomial_regression_example_old.ipynb
 tests/notebooks/ordinal_logit_example_old.ipynb
-tests/cuda_test
 tests/test_objects.py

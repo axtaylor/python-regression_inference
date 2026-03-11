@@ -1,0 +1,5 @@
+dist/
+.git/
+.pytest_cache/
+.gitignore
+.gitattributes

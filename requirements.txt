@@ -1,0 +1,5 @@
+numpy==2.0.0
+scipy==1.15.0
+cupy-cuda11x==13.6.0
+hatchling==1.29.0
+build==1.4.0
